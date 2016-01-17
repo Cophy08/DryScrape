@@ -1,5 +1,5 @@
 # Dry Scrape
-# Last edited 1-16-2015
+# Last edited 1-16-2016
 # Manny
 
 # Load libraries
@@ -696,10 +696,3 @@ print(end - start)
 
 ########################################################################################################################################################################################################
 
-# FIX DETAILS
-# SCRAPE SHIFT JSON
-# ADD GRANULARITY TO SCORE CATEGORY
-# ADD REBOUNDS AND RUSHES (NOT SEPARATED BY FACEOFFS)
-# CALCULATE XG
-# ASSIGN COLUMN CLASSES
-# CHRONOLOGY STILL IFFY
