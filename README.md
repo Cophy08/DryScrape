@@ -14,8 +14,8 @@ names = TRUE will provoke all player values to take the form "FIRSTNAME.LASTNAME
 
 DryScrape.R contains the complete code for both functions, as well as an example of scrape() usage.
 
-scrape() example
+# scrape() example
 scrape(season = "20152016", start = 20001, end = 20012, names = TRUE) # scrape games 20001-20012 from the 20152016 season, with names
 
-todays.games() example
+# todays.games() example
 todays.games("20152016", "1/16/2016") # Provide IDs for games played on 1/16/2016 of the 20152016 season
