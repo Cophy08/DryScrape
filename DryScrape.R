@@ -1,11 +1,16 @@
 # Dry Scrape
-# Last edited 1-16-2016
+# Last edited 1-17-2016
 # Manny
 
 # Load libraries
 library(rvest)
 library(dplyr)
 library(RCurl)
+
+# Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 Safari/537.36
+# Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36
+# Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.5.2171.95 Safari/537.36
+# Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36
 
 ########################################################################################################################################################################################################
 
@@ -30,6 +35,11 @@ scrape <- function(season, start, end, names) {
   pbp.list <- NULL
   roster.list <- NULL
   
+  agents <- c("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.111 Safari/537.36",
+              "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36",
+              "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.5.2171.95 Safari/537.36",
+              "Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36")
+  
   for (j in 1:((end - start) + 1)) {
   
     ########################################################################################################################################################################################################
@@ -47,7 +57,7 @@ scrape <- function(season, start, end, names) {
                          verbose = TRUE,
                          header = TRUE,
                          followLocation = TRUE,
-                         useragent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36'))
+                         useragent = agents[sample(1:4, 1)]))
     
     # Create HTML object
     html <- read_html(url.text)
@@ -252,7 +262,7 @@ scrape <- function(season, start, end, names) {
                          verbose = TRUE,
                          header = TRUE,
                          followLocation = TRUE,
-                         useragent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36'))
+                         useragent = agents[sample(1:4, 1)]))
     
     url2.text <- getURL(url2, header = FALSE,
                        .opts = curlOptions(
@@ -260,7 +270,7 @@ scrape <- function(season, start, end, names) {
                          verbose = TRUE,
                          header = TRUE,
                          followLocation = TRUE,
-                         useragent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36'))
+                         useragent = agents[sample(1:4, 1)]))
     
     # Create HTML objects
     html1 <- read_html(url1.text) # Home
@@ -463,7 +473,7 @@ scrape <- function(season, start, end, names) {
                          verbose = TRUE,
                          header = TRUE,
                          followLocation = TRUE,
-                         useragent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36'))
+                         useragent = agents[sample(1:4, 1)]))
     
     text.3 <- unlist(strsplit(full.text.3, ","))
     
@@ -492,7 +502,7 @@ scrape <- function(season, start, end, names) {
                         verbose = TRUE,
                         header = TRUE,
                         followLocation = TRUE,
-                        useragent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36'))
+                        useragent = agents[sample(1:4, 1)]))
       
       gameids <- gsub("window.open[(][']", "", unique(unlist(regmatches (glist, gregexpr("window.open[(][']http://www.sportsnet.ca/hockey/nhl/livetracker/game/[0-9]+", glist)))))
       teamcity <- gsub("<span class=\"scores-team-city\">|</span>", "", unlist(regmatches (glist, gregexpr("<span class=\"scores-team-city\">([a-zA-Z]|[.]|[-]|[ ])+</span>", glist))))
@@ -536,7 +546,7 @@ scrape <- function(season, start, end, names) {
                            verbose = TRUE,
                            header = TRUE,
                            followLocation = TRUE,
-                           useragent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36'))
+                           useragent = agents[sample(1:4, 1)]))
       
       events <- unlist(regmatches (gamepage, gregexpr("[{]\\\"id\\\":[0-9]+,\\\"loc.*?momentum", gamepage)))
       time <- gsub("elapsed\\\":\\\"", "", unlist(regmatches (events, gregexpr("elapsed\\\":\\\"[0-9:]+", events))))
@@ -575,7 +585,7 @@ scrape <- function(season, start, end, names) {
                       verbose = TRUE,
                       header = TRUE,
                       followLocation = TRUE,
-                      useragent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36'))
+                      useragent = agents[sample(1:4, 1)]))
       
       gameids <- unique(unlist(regmatches(glist, gregexpr("gameId=[0-9]+", glist))))
       teams <- toupper(gsub("team/_/name/", "", unique(unlist(regmatches(glist, gregexpr("team/_/name/[a-zA-Z]+", glist))))))
@@ -606,7 +616,7 @@ scrape <- function(season, start, end, names) {
                          verbose = TRUE,
                          header = TRUE,
                          followLocation = TRUE,
-                         useragent = 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.130 Safari/537.36'))
+                         useragent = agents[sample(1:4, 1)]))
       
       enames = c("FAC", "HIT", "GvTk", "GOAL", "SHOT", "MISS", "BLOCK", "PENL",
                  "STOP", "PRDY", "PSTR", "PEND", "PERD", "SOC", "GEnd", "SOut",
@@ -689,7 +699,7 @@ scrape <- function(season, start, end, names) {
 # Test function
 start = Sys.time()
 
-scrape(season = "20132014", start = 20934, end = 20934, names = TRUE)
+scrape(season = "20152016", start = 20001, end = 20012, names = TRUE)
 
 end = Sys.time()
 print(end - start)
